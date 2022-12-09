@@ -14,7 +14,7 @@ export class StudentService {
   constructor(private firestore: AngularFirestore) {
     this.students = [
       {
-        controlnumber: "02400391",
+        controlnumber: "18401175",
         age: 38,
         career: "ISC",
         curp: "AOVI840917HNTRZS09",
@@ -24,22 +24,22 @@ export class StudentService {
         photo: 'https://picsum.photos/600/?random=1'
       },
       {
-        controlnumber: "12400391",
+        controlnumber: "11773652",
         age: 28,
         career: "IM",
         curp: "AOCI840917HNTRZS09",
-        email: "iarjona2@ittepic.edu.mx",
-        name: "Israel Arjona Castañeda",
+        email: "heleperez@ittepic.edu.mx",
+        name: "Juan luis lopez",
         nip: 818,
         photo: 'https://picsum.photos/600/?random=2'
       },
       {
-        controlnumber: "22400391",
+        controlnumber: "99857746",
         age: 18,
         career: "IC",
         curp: "OOCI840917HNTRZS09",
-        email: "iarjona3@ittepic.edu.mx",
-        name: "Israel Arjona Méndez",
+        email: "hleopoldo@ittepic.edu.mx",
+        name: "Hector leopoldo",
         nip: 919,
         photo: 'https://picsum.photos/600/?random=3'
       }
@@ -47,7 +47,6 @@ export class StudentService {
   }
 
   public getStudents(): Observable<Student[]> {
-    //return this.students;
     return this.firestore.collection('students').snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -60,9 +59,11 @@ export class StudentService {
   }
 
   public removeStudent(id:string) {
-    /*this.students.splice(pos, 1);
-    return this.students;*/
     this.firestore.collection('students').doc(id).delete();
+  }
+
+  public updateStudent(id:string, student: Student){
+    this.firestore.collection('students').doc(id).update(student);
   }
 
   public getStudentByID(id: string){
@@ -70,23 +71,16 @@ export class StudentService {
     return result;
   }
 
+  public newStudent(student: Student){
+    
+    this.firestore.collection('students').add(student)
+  }
+
   public getStudentByControlNumber(controlnumber: string): Student {
     let item: Student = this.students.find((student) => {
       return student.controlnumber === controlnumber;
     });
     return item;
-  }
-
-  public newStudent(student: Student){
-    
-    this.firestore.collection('students').add(student)
-    /* this.students.push(student);
-    return this.students; */
-  }
-
-  //PROBAR
-  public updateStudent(id:string, student: Student){
-    this.firestore.collection('students').doc(id).update(student);
   }
 
 }

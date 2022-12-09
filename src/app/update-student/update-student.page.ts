@@ -11,10 +11,10 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./update-student.page.scss'],
 })
 export class UpdateStudentPage implements OnInit {
+
   public student: Student;
   public myForm: FormGroup;
   public validationMessages: object;
-
   public id : string;
 
   constructor(
@@ -36,11 +36,9 @@ export class UpdateStudentPage implements OnInit {
       id: ''
     }
     console.log(this.student);
-    
   }
 
   ngOnInit() {
-    
     this.activatedRoute.queryParams.subscribe((params) => {
       this.studentService.getStudentByID(params.id).subscribe((item) => {
         this.id = params.id;
@@ -54,14 +52,12 @@ export class UpdateStudentPage implements OnInit {
         this.myForm.get('email').setValue(this.student.email);
         this.myForm.get('career').setValue(this.student.career);
         this.myForm.get('photo').setValue(this.student.photo);
-
       });
-
-      this.llenarCampos()
+      this.obtener()
     });
   }
 
-  public llenarCampos() {
+  public obtener() {
     this.myForm = this.fb.group({
       controlnumber: [
         this.student.controlnumber,
@@ -96,34 +92,34 @@ export class UpdateStudentPage implements OnInit {
 
     this.validationMessages = {
       controlnumber: [
-        { type: 'required', message: 'Debe capturar el número de control' },
+        { type: 'required', message: 'Ingresa elnumero de control' },
         {
           type: 'minlength',
-          message: 'El número de control parece estar mal formado',
+          message: 'El numero de control no coincide',
         },
         {
           type: 'pattern',
-          message: 'El número de control debe contener sólo números',
+          message: 'El numero de control contiene puros numeros',
         },
       ],
-      name: [{ type: 'required', message: 'Debe capturar el nombre' }],
+      name: [{ type: 'required', message: 'Ingresa el nombre' }],
       curp: [
-        { type: 'required', message: 'Debe capturar la CURP' },
+        { type: 'required', message: 'Ingresa la curp' },
         { type: 'pattern', message: 'La CURP parece estar mal formada' },
       ],
       age: [
-        { type: 'required', message: 'Debe capturar la edad' },
-        { type: 'min', message: 'La edad es incorrecta' },
+        { type: 'required', message: 'Ingresa la edad' },
+        { type: 'min', message: 'Formato de edad incorrecta' },
       ],
       nip: [
-        { type: 'required', message: 'Debe capturar el NIP' },
+        { type: 'required', message: 'Ingresa el nip' },
         { type: 'min', message: 'El NIP debe ser mayor a 9' },
       ],
       email: [
-        { type: 'required', message: 'Debe capturar el email' },
-        { type: 'email', message: 'El email parece estar mal formado' },
+        { type: 'required', message: 'Ingresa el correo' },
+        { type: 'email', message: 'El formato del correo es incorrecto' },
       ],
-      career: [{ type: 'required', message: 'Debe capturar la carrera' }],
+      career: [{ type: 'required', message: 'Seleccione la carrera' }],
       photo: [
         { type: 'required', message: 'Debe capturar la url de la fotografía' },
       ],
@@ -131,13 +127,15 @@ export class UpdateStudentPage implements OnInit {
   }
   async presentToast(position: 'top' | 'middle' | 'bottom') {
     const toast = await this.toastController.create({
-      message: 'GUARDADO CORRECTAMENTE',
-      duration: 1500,
+      message: 'Se guardo correctamente',
+      duration: 1200,
       position,
       color: 'success'
     });
     await toast.present();
   }
+
+
   public updateStudent() {
     this.student = {
       controlnumber: this.myForm.controls.controlnumber.value,
@@ -155,4 +153,6 @@ export class UpdateStudentPage implements OnInit {
     console.log(this.student);
     this.router.navigate(['..']);
   }
+
+  
 }

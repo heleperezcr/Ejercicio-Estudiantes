@@ -20,14 +20,6 @@ export class NewStudentPage implements OnInit {
 
   ngOnInit() {
     this.myForm = this.fb.group({
-      /*controlnumber:["", Validators.compose([Validators.minLength(8), Validators.required, Validators.pattern('^[0-9]+$')])],
-      name:["", Validators.required],
-      curp:["", Validators.compose([Validators.required, Validators.pattern('^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$')])],
-      age:[0, Validators.compose([Validators.required, Validators.min(17)])],
-      nip:[0, Validators.compose([Validators.required, Validators.min(10)])],
-      email:["", Validators.compose([Validators.required, Validators.email])],
-      career:["", Validators.required],
-      photo:["", Validators.compose([Validators.required])]*/
       controlnumber: ["02400391", Validators.compose([Validators.minLength(8), Validators.required, Validators.pattern('^[0-9]+$')])],
       name: ["ISRAEL ARJONA", Validators.required],
       curp: ["AOVI840917HNTRZS09", Validators.compose([Validators.required, Validators.pattern('^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$')])],
@@ -40,48 +32,47 @@ export class NewStudentPage implements OnInit {
 
     this.validationMessages = {
       'controlnumber': [
-        { type: 'required', message: "Debe capturar el número de control" },
-        { type: 'minlength', message: "El número de control parece estar mal formado" },
-        { type: 'pattern', message: "El número de control debe contener sólo números" }
+        { type: 'required', message: "captura el número de control" },
+        { type: 'minlength', message: "El número de control es incorrecto" },
+        { type: 'pattern', message: "El número de control es solo con numeros" }
       ],
       'name': [
-        { type: 'required', message: "Debe capturar el nombre" }
+        { type: 'required', message: "Captura el nombre" }
       ],
       'curp': [
-        { type: 'required', message: "Debe capturar la CURP" },
-        { type: 'pattern', message: "La CURP parece estar mal formada" }
+        { type: 'required', message: "Ingrese la CURP" },
+        { type: 'pattern', message: "CURP incorrecta" }
       ],
       'age': [
-        { type: 'required', message: "Debe capturar la edad" },
-        { type: 'min', message: "La edad es incorrecta" }
+        { type: 'required', message: "Ingrese la edad" },
+        { type: 'min', message: "Formato de edad incorrecta" }
       ],
       'nip': [
-        { type: 'required', message: "Debe capturar el NIP" },
+        { type: 'required', message: "Ingresa el NIP" },
         { type: 'min', message: "El NIP debe ser mayor a 9" }
       ],
       'email': [
-        { type: 'required', message: "Debe capturar el email" },
-        { type: 'email', message: "El email parece estar mal formado" }
+        { type: 'required', message: "Ingresa el correo" },
+        { type: 'email', message: "El formato del correo es incorrecto" }
       ],
       'career': [
-        { type: 'required', message: "Debe capturar la carrera" }
+        { type: 'required', message: "Seleccione la carrera" }
       ],
       'photo': [
-        { type: 'required', message: "Debe capturar la url de la fotografía" }
+        { type: 'required', message: "Ingrese una fotografia" }
       ]
     }
   }
 
   async presentToast(position: 'top' | 'middle' | 'bottom') {
     const toast = await this.toastController.create({
-      message: 'GUARDADO CORRECTAMENTE',
+      message: 'Se guardo correctamente',
       duration: 1500,
       position,
       color: 'success'
     });
     await toast.present();
   }
-
 
   public newStudent() {
     this.student = {
@@ -99,8 +90,6 @@ export class NewStudentPage implements OnInit {
     this.presentToast('top');
     console.log(this.student);
     this.router.navigate(['..']);
-    //console.log(this.studentService.newStudent(this.student));
-
   }
 
 
